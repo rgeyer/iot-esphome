@@ -1,0 +1,14 @@
+web_server:
+
+prometheus:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+ota:
+  password: ""

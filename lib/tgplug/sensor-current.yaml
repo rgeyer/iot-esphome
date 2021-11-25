@@ -1,0 +1,2 @@
+name: "${plug_name} Amperage"
+unit_of_measurement: A

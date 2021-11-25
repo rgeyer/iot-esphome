@@ -1,0 +1,8 @@
+platform: hlw8012
+sel_pin:
+  number: GPIO12
+  inverted: True
+cf_pin: GPIO04
+cf1_pin: GPIO5
+change_mode_every: 8
+update_interval: 3s # Longer interval gives better accuracy

@@ -1,0 +1,32 @@
+esphome:
+  name: ${plug_name}
+  platform: ESP8266
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO3
+      inverted: True
+    name: "${plug_name} Button"
+    on_press:
+      then:
+        - switch.toggle: "relay"
+        # Note that blue LED appears to be tied to relay state internally (i.e. electrically)
+
+switch:
+  # Main plug control relay
+  - platform: gpio
+    name: "${plug_name} Relay"
+    id: "relay"
+    pin: GPIO14
+    restore_mode: ${restore_mode}
+
+status_led:
+  # Use Green LED as ESPHome's built-in status indicator
+  pin:
+    number: GPIO13
+    inverted: False

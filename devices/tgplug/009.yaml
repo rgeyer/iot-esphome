@@ -1,0 +1,37 @@
+substitutions:
+  plug_name: tgplug009
+  # Plug state to set upon powerup (or after power loss)
+  # See options here: https://esphome.io/components/switch/gpio.html
+  restore_mode: ALWAYS_ON
+
+<<: !include ../../lib/http.yaml
+<<: !include ../../lib/wifi.yaml
+<<: !include ../../lib/tgplug/common.yaml
+
+# Sparse config tree for the sensors, any adjustments specific to this
+# unit can be added here
+sensor:
+  - <<: !include ../../lib/tgplug/sensor-pwr-common.yaml
+    current:
+      <<: !include ../../lib/tgplug/sensor-current.yaml
+      filters:
+      - calibrate_linear:
+        - 0.09656 -> 0.029
+        - 0.66629 -> 0.373
+        - 13.82786 -> 7.698
+    voltage:
+      <<: !include ../../lib/tgplug/sensor-volt.yaml
+      filters:
+      - calibrate_linear:
+          - 0.0 -> 0.0
+          - 124.36172 -> 117.5
+    power:
+      <<: !include ../../lib/tgplug/sensor-watt.yaml
+      filters:
+      - calibrate_linear:
+        - 0.0 -> 1.55
+        - 55.16593 -> 29.37
+        - 1651.53003 -> 850.4
+    
+  - <<: !include ../../lib/tgplug/sensor-daily.yaml
+  - <<: !include ../../lib/tgplug/sensor-uptime.yaml
