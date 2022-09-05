@@ -1,0 +1,96 @@
+substitutions:
+  plug_name: cyberpower
+
+<<: !include ../../lib/http.yaml
+<<: !include ../../lib/wifi.yaml
+
+esphome:
+  name: ${plug_name}
+  includes:
+  - ../../lib/cyberpower/customcomponent.h
+
+esp32:
+  board: esp32doit-devkit-v1
+
+logger:
+  level: VERBOSE
+
+uart:
+  id: cyberpower_uart
+  baud_rate: 2400
+  tx_pin: 
+    number: GPIO17
+    inverted: true
+    mode: OUTPUT
+
+  rx_pin:
+    number: GPIO16
+    inverted: true
+    mode: INPUT
+  debug:
+    direction: BOTH
+    dummy_receiver: true
+    after:
+      delimiter: "\r"
+    sequence:
+      - lambda: UARTDebug::log_string(direction, bytes);
+
+sensor:
+- platform: custom
+  lambda: |-
+    auto cpups = new CyberPowerUps(id(cyberpower_uart));
+    App.register_component(cpups);
+    return {
+      cpups->inputVolts,
+      cpups->outputVolts,
+      cpups->loadPercent,
+      cpups->temperature,
+      cpups->batteryPercent,
+      cpups->inputFreqHz,
+      cpups->outputFreqHz,
+      cpups->runtimeMinutes,
+      cpups->loadHundredWatts
+    };
+
+  sensors:
+  - name: Input Voltage
+    unit_of_measurement: v
+    accuracy_decimals: 1
+  - name: Output Voltage
+    unit_of_measurement: v
+    accuracy_decimals: 1
+  - name: Load Percent
+    unit_of_measurement: "%"
+    accuracy_decimals: 0
+  - name: Temperature
+    unit_of_measurement: °C
+    accuracy_decimals: 0
+  - name: Battery Percent
+    unit_of_measurement: "%"
+    accuracy_decimals: 0
+  - name: Input Freqenncy
+    unit_of_measurement: Hz
+    accuracy_decimals: 0
+  - name: Output Frequency
+    unit_of_measurement: Hz
+    accuracy_decimals: 0
+  - name: Runtime Minutes
+    unit_of_measurement: min
+    accuracy_decimals: 0
+  - name: Load Watts * 100
+    unit_of_measurement: w
+    accuracy_decimals: 2
+
+# switch:
+#   - platform: gpio
+#     pin: GPIO5
+#     name: dalight
+#     id: dalight
+
+# interval:
+#   - interval: 30s
+#     then:
+#     - uart.write: "P4\r"
+#   - interval: 10s
+#     then:
+#       - uart.write: "D\r"
