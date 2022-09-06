@@ -29,7 +29,7 @@ uart:
     mode: INPUT
   debug:
     direction: BOTH
-    dummy_receiver: true
+    dummy_receiver: false
     after:
       delimiter: "\r"
     sequence:
@@ -77,8 +77,8 @@ sensor:
   - name: Runtime Minutes
     unit_of_measurement: min
     accuracy_decimals: 0
-  - name: Load Watts * 100
-    unit_of_measurement: w
+  - name: Load Hectowatts
+    unit_of_measurement: hW
     accuracy_decimals: 2
 
 # switch:
