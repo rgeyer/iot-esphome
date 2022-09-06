@@ -1,5 +1,4 @@
 #include <esphome.h>
-#include <string>
 
 class CyberPowerUps : public PollingComponent, public UARTDevice
 {
@@ -35,7 +34,6 @@ public:
     if (s != nullptr && len)
     {
       val[len] = '\0'; // Terminate the val
-      // ESP_LOGD("cyberpower_ups", val);
       s->publish_state((float)atof(val));
     }
   }
@@ -52,14 +50,12 @@ public:
     while (available())
     {
       char rchar = read();
-      // ESP_LOGD("cyberpower_ups", "Read char %c", rchar);
       switch (rchar)
       {
       case 'I':
         writeSensor(currentSensor, buffer, pos);
         currentSensor = this->inputVolts;
         pos = 0;
-        // Should I nuke the rest of the buffer?
         break;
       case 'O':
         writeSensor(currentSensor, buffer, pos);

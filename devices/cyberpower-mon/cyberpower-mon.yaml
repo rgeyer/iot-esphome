@@ -34,6 +34,7 @@ uart:
       delimiter: "\r"
     sequence:
       - lambda: UARTDebug::log_string(direction, bytes);
+      # - lambda: UARTDebug::log_hex(direction, bytes, ',');
 
 sensor:
 - platform: custom
@@ -68,7 +69,7 @@ sensor:
   - name: Battery Percent
     unit_of_measurement: "%"
     accuracy_decimals: 0
-  - name: Input Freqenncy
+  - name: Input Frequency
     unit_of_measurement: Hz
     accuracy_decimals: 0
   - name: Output Frequency
@@ -80,12 +81,6 @@ sensor:
   - name: Load Hectowatts
     unit_of_measurement: hW
     accuracy_decimals: 2
-
-# switch:
-#   - platform: gpio
-#     pin: GPIO5
-#     name: dalight
-#     id: dalight
 
 # interval:
 #   - interval: 30s
