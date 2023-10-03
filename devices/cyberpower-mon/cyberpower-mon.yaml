@@ -55,10 +55,10 @@ sensor:
 
   sensors:
   - name: Input Voltage
-    unit_of_measurement: v
+    unit_of_measurement: V
     accuracy_decimals: 1
   - name: Output Voltage
-    unit_of_measurement: v
+    unit_of_measurement: V
     accuracy_decimals: 1
   - name: Load Percent
     unit_of_measurement: "%"
