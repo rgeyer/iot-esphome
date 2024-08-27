@@ -1,0 +1,10 @@
+substitutions:
+  plug_name: "redbox"
+  nice_zone_name: "Red Box"
+  # Plug state to set upon powerup (or after power loss)
+  # See options here: https://esphome.io/components/switch/gpio.html
+  restore_mode: ALWAYS_ON
+
+<<: !include ../../lib/http.yaml
+<<: !include ../../lib/wifi.yaml
+<<: !include ../../lib/dht11/common.yaml

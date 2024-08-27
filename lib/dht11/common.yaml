@@ -1,0 +1,22 @@
+esphome:
+  name: ${plug_name}
+  platform: ESP8266
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+sensor:
+  - platform: dht
+    pin: GPIO5
+    temperature:
+      name: "${nice_zone_name} Temperature"
+    humidity:
+      name: "${nice_zone_name} Humidity"
+    update_interval: 60s
+
+status_led:
+  # Use Green LED as ESPHome's built-in status indicator
+  pin:
+    number: GPIO13
+    inverted: False
