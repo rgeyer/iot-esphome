@@ -11,4 +11,5 @@ time:
     id: homeassistant_time
 
 ota:
+  platform: esphome
   password: ""
