@@ -23,3 +23,11 @@ Couldn't figure out how to communicate for the longest time, but finally got it 
 Also, my UPS seems to emit a different set of details when checking with "D/r", namely..
 
 `#I113O113L26B94T46F60.0H60.0R24Q1.8S�����W�`
+
+## Useful commands
+
+Compiling using a docker container
+`docker run --rm -i -v "${PWD}":/config ghcr.io/esphome/esphome compile devices/path/to/config.yaml`
+
+Flashing using a docker container
+`docker run --rm -i -v "${PWD}":/config ghcr.io/esphome/esphome upload --device <ip or serial port etc> devices/path/to/config.yaml`
